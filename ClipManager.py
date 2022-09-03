@@ -5,6 +5,7 @@ from Addons import checklistcombobox
 from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
+from tkinter import ttk
 from tkinter.ttk import Combobox
 from tkinter import filedialog
 from tkinter import font as tkFont
@@ -20,26 +21,36 @@ class App():
 		#self.root.iconbitmap("path/to/ico/file")
 		# theme and font color
 		self.main_theme = "grey35"
-		self.text_color = "white"
+		self.font_color = "orange"
 		self.main_button_color = "grey45"
 		self.selected_button_color = "DarkOrange2"
 		self.critical_button_color = "firebrick2"
 		self.safe_button_color = "green3"
-		self.main_font = tkFont.Font(size=11, weight="bold")
+		self.main_font_size11 = tkFont.Font(size=11, weight="bold")
+		self.main_font_size8 = tkFont.Font(size=8, weight="bold")
 
 		self.main_frame = None
 		self.loadMenuBar()
+		self.loadClipManager()
 
-
+	# --------------------------------------------------------------------------------------------------
+	# MENU BAR
 	def loadMenuBar(self):
-		# --------------------------------------------------------------------------------------------------
-		# MENU BAR
-		self.menubar = Menu(self.root, bg=self.main_theme, fg=self.text_color, activebackground="white", activeforeground='black')
-		self.file = Menu(self.menubar, tearoff=0, bg=self.main_theme, fg=self.text_color, font=self.main_font)
+		self.menubar = Menu(self.root, bg=self.main_theme, fg=self.font_color, activebackground="white", activeforeground='black')
+		self.file = Menu(self.menubar, tearoff=0, background=self.main_theme, fg=self.font_color, font=self.main_font_size8)
 		self.file.add_command(label="Options", command=self.openOptions)
 		self.file.add_command(label="Help", command=None)
 		self.menubar.add_cascade(label="File", menu=self.file)
 		self.root.config(menu=self.menubar)
+
+	# --------------------------------------------------------------------------------------------------
+	# CLIP MANAGER MAIN PAGE
+	def loadClipManager(self):
+		self.leftFrame = LabelFrame(self.root, text="TAG", font=self.main_font_size8, labelanchor="n", borderwidth=3, height=100, width=100, fg=self.font_color, bg=self.main_theme)
+		self.leftFrame.pack(fill=BOTH, expand=1, side=LEFT, padx=0, pady=0)
+
+		self.rightFrame = LabelFrame(self.root, text="SEARCH", font=self.main_font_size8, labelanchor="n", borderwidth=3, height=100, width=100, fg=self.font_color, bg=self.main_theme)
+		self.rightFrame.pack(fill=BOTH, expand=1, side=LEFT, padx=0, pady=0)
 
 	# --------------------------------------------------------------------------------------------------
 	# OPTIONS WINDOW
