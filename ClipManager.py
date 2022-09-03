@@ -5,7 +5,7 @@ from Addons import checklistcombobox
 from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
-from tkinter import ttk
+#from tkinter import ttk
 from tkinter.ttk import Combobox
 from tkinter import filedialog
 from tkinter import font as tkFont
@@ -29,6 +29,10 @@ class App():
 		self.main_font_size11 = tkFont.Font(size=11, weight="bold")
 		self.main_font_size8 = tkFont.Font(size=8, weight="bold")
 
+		# variables
+		self.currentClipName = StringVar(self.root)
+		self.currentClipName.set("test.mp4")
+
 		self.main_frame = None
 		self.loadMenuBar()
 		self.loadClipManager()
@@ -46,9 +50,18 @@ class App():
 	# --------------------------------------------------------------------------------------------------
 	# CLIP MANAGER MAIN PAGE
 	def loadClipManager(self):
+		# main window left frame
 		self.leftFrame = LabelFrame(self.root, text="TAG", font=self.main_font_size8, labelanchor="n", borderwidth=3, height=100, width=100, fg=self.font_color, bg=self.main_theme)
 		self.leftFrame.pack(fill=BOTH, expand=1, side=LEFT, padx=0, pady=0)
 
+		self.currentClipFrame = Frame(self.leftFrame, borderwidth=3, bg=self.main_theme)
+		self.currentClipFrame.pack(side=TOP, fill=X, expand=False)
+		self.currentClipNameEntry = Entry(self.currentClipFrame, text=self.currentClipName, font=self.main_font_size8, fg=self.font_color, bg=self.main_theme, highlightbackground="red", highlightcolor="red", state=DISABLED)
+		self.currentClipNameEntry.pack(side=TOP, fill=X, expand=False)
+		#self.currentClipNameLabel = Label(self.currentClipFrame, text=self.currentClipName, font=self.main_font_size8, fg=self.font_color, bg=self.main_theme, borderwidth=1, relief="solid")
+		#self.currentClipNameLabel.pack(side=TOP, fill=X, expand=False)
+
+		# main window right frame
 		self.rightFrame = LabelFrame(self.root, text="SEARCH", font=self.main_font_size8, labelanchor="n", borderwidth=3, height=100, width=100, fg=self.font_color, bg=self.main_theme)
 		self.rightFrame.pack(fill=BOTH, expand=1, side=LEFT, padx=0, pady=0)
 
