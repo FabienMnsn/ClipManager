@@ -10,7 +10,8 @@ from tkinter.ttk import Combobox
 from tkinter import filedialog
 from tkinter import font as tkFont
 from datetime import datetime
-
+from PIL import ImageTk
+from PIL import Image
 
 # --------------------------------------------------------------------------------------------------
 # MAIN APP CLASS
@@ -57,7 +58,7 @@ class App():
 		self.leftFrame = LabelFrame(self.root, text="TAG", font=self.main_font_size8, labelanchor="n", borderwidth=3, height=100, width=100, fg=self.font_color, bg=self.main_theme)
 		self.leftFrame.pack(fill=BOTH, expand=1, side=LEFT, padx=0, pady=0)
 
-		# NIR = NameInfoRename
+		# First Frame (Clip Name + Clip Info + Rename Button) NIR = NameInfoRename
 		self.currentClipNIRFrame = Frame(self.leftFrame, borderwidth=0, bg=self.main_theme, relief="sunken")
 		self.currentClipNIRFrame.pack(side=TOP, fill=X, expand=False)
 
@@ -66,12 +67,48 @@ class App():
 
 		self.currentClipNameEntry = Entry(self.currentClipFrame, text=self.currentClipName, font=self.main_font_size8, fg=self.font_color, bg=self.main_theme, highlightbackground="red", highlightcolor="red", state=NORMAL)
 		self.currentClipNameEntry.pack(side=TOP, fill=X, expand=False)
+		
 		self.currentClipInfoLabel = Label(self.currentClipFrame, text=self.currentClipInfo.get(), font=self.main_font_size8, anchor="w", fg=self.font_color, bg=self.main_theme, borderwidth=1, relief="sunken")
 		self.currentClipInfoLabel.pack(side=TOP, fill=X, expand=False)
 
 		self.buttonRename = Button(self.currentClipNIRFrame, text="Rename", fg=self.font_color, font=self.main_font_size8, relief="raised", bg=self.main_theme)
 		#self.buttonRename['command'] = self.buttonRename_clicked1
 		self.buttonRename.pack(side=RIGHT, fill=Y)
+
+
+		# Second Frame (PPNKC = Previous + Pause + Next buttons + Kill Counter)
+		self.PPNKCFrame = Frame(self.leftFrame, borderwidth=0, bg=self.main_theme, relief="sunken")
+		self.PPNKCFrame.pack(side=TOP, fill=X, expand=False)
+
+		# Sub Frame PPN = Previous + Play + Next
+		self.PPNFrame = LabelFrame(self.PPNKCFrame, text="Media control", font=self.main_font_size8, labelanchor="s", borderwidth=0, bg=self.main_theme, fg=self.font_color)
+		#self.PPNFrame = Frame(self.PPNKCFrame, borderwidth=0, bg=self.main_theme, relief="sunken")
+		self.PPNFrame.pack(side=LEFT, padx=5, pady=5)
+
+		image = Image.open("Icons/Previous.png")
+		image = image.resize((40,40))
+		previousIcon = ImageTk.PhotoImage(image)
+		self.previousClipButton = Button(self.PPNFrame, relief="raised", bg=self.main_theme, image=previousIcon)
+		self.previousClipButton.image = previousIcon
+		#self.previousClipButton['command'] = self.buttonPreviousClicked
+		self.previousClipButton.pack(side=LEFT, padx=5)
+
+		image = Image.open("Icons/Play.png")
+		image = image.resize((40,40))
+		playIcon = ImageTk.PhotoImage(image)
+		self.playButton = Button(self.PPNFrame, relief="raised", bg=self.main_theme, image=playIcon)
+		self.playButton.image = playIcon
+		#self.playButton['command'] = self.openInDefaultPlayer
+		self.playButton.pack(side=LEFT, pady=5)
+
+		image = Image.open("Icons/Next.png")
+		image = image.resize((40,40))
+		next_icon = ImageTk.PhotoImage(image)
+		self.nextClipButton = Button(self.PPNFrame, relief="raised", bg=self.main_theme, image=next_icon)
+		self.nextClipButton.image = next_icon
+		#self.nextClipButton['command'] = self.buttonNextClicked
+		self.nextClipButton.pack(side=LEFT, padx=5)#padx=(5,5), pady=5)
+
 
 		# main window right frame
 		self.rightFrame = LabelFrame(self.root, text="SEARCH", font=self.main_font_size8, labelanchor="n", borderwidth=3, height=100, width=100, fg=self.font_color, bg=self.main_theme)
