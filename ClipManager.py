@@ -31,7 +31,10 @@ class App():
 
 		# variables
 		self.currentClipName = StringVar(self.root)
-		self.currentClipName.set("test.mp4")
+		self.currentClipName.set("CLIP NAME.mp4")
+
+		self.currentClipInfo = StringVar(self.root)
+		self.currentClipInfo.set("NEW, 27/02/2022, 03:45, 400Mo")
 
 		self.main_frame = None
 		self.loadMenuBar()
@@ -54,12 +57,21 @@ class App():
 		self.leftFrame = LabelFrame(self.root, text="TAG", font=self.main_font_size8, labelanchor="n", borderwidth=3, height=100, width=100, fg=self.font_color, bg=self.main_theme)
 		self.leftFrame.pack(fill=BOTH, expand=1, side=LEFT, padx=0, pady=0)
 
-		self.currentClipFrame = Frame(self.leftFrame, borderwidth=3, bg=self.main_theme)
-		self.currentClipFrame.pack(side=TOP, fill=X, expand=False)
-		self.currentClipNameEntry = Entry(self.currentClipFrame, text=self.currentClipName, font=self.main_font_size8, fg=self.font_color, bg=self.main_theme, highlightbackground="red", highlightcolor="red", state=DISABLED)
+		# NIR = NameInfoRename
+		self.currentClipNIRFrame = Frame(self.leftFrame, borderwidth=0, bg=self.main_theme, relief="sunken")
+		self.currentClipNIRFrame.pack(side=TOP, fill=X, expand=False)
+
+		self.currentClipFrame = Frame(self.currentClipNIRFrame, borderwidth=0, bg=self.main_theme, relief="groove")
+		self.currentClipFrame.pack(side=LEFT, fill=X, expand=True)
+
+		self.currentClipNameEntry = Entry(self.currentClipFrame, text=self.currentClipName, font=self.main_font_size8, fg=self.font_color, bg=self.main_theme, highlightbackground="red", highlightcolor="red", state=NORMAL)
 		self.currentClipNameEntry.pack(side=TOP, fill=X, expand=False)
-		#self.currentClipNameLabel = Label(self.currentClipFrame, text=self.currentClipName, font=self.main_font_size8, fg=self.font_color, bg=self.main_theme, borderwidth=1, relief="solid")
-		#self.currentClipNameLabel.pack(side=TOP, fill=X, expand=False)
+		self.currentClipInfoLabel = Label(self.currentClipFrame, text=self.currentClipInfo.get(), font=self.main_font_size8, anchor="w", fg=self.font_color, bg=self.main_theme, borderwidth=1, relief="sunken")
+		self.currentClipInfoLabel.pack(side=TOP, fill=X, expand=False)
+
+		self.buttonRename = Button(self.currentClipNIRFrame, text="Rename", fg=self.font_color, font=self.main_font_size8, relief="raised", bg=self.main_theme)
+		#self.buttonRename['command'] = self.buttonRename_clicked1
+		self.buttonRename.pack(side=RIGHT, fill=Y)
 
 		# main window right frame
 		self.rightFrame = LabelFrame(self.root, text="SEARCH", font=self.main_font_size8, labelanchor="n", borderwidth=3, height=100, width=100, fg=self.font_color, bg=self.main_theme)
