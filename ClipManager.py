@@ -78,21 +78,24 @@ class App():
 		#self.buttonRename['command'] = self.buttonRename_clicked1
 		self.buttonRename.pack(side=RIGHT, fill=Y)
 
-
+		# --------------------------------------------------------------------------------------------------
 		# Second Frame (PPNKC = Previous + Pause + Next buttons + Kill Counter)
 		self.PPNKCFrame = Frame(self.leftFrame, borderwidth=0, bg=self.main_theme, relief="sunken")
 		self.PPNKCFrame.pack(side=TOP, fill=X, expand=False)
 
-
+		# --------------------------------------------------------------------------------------------------
 		# Sub Frame PPN = Previous + Play + Next
-		self.PPNFrame = LabelFrame(self.PPNKCFrame, text="Media control", font=self.main_font_size8, labelanchor="s", borderwidth=0, bg=self.main_theme, fg=self.font_color)
+		self.PPNFrame = LabelFrame(self.PPNKCFrame, text="Media control", font=self.main_font_size8, labelanchor="s", borderwidth=1, bg=self.main_theme, fg=self.font_color)
 		#self.PPNFrame = Frame(self.PPNKCFrame, borderwidth=0, bg=self.main_theme, relief="sunken")
-		self.PPNFrame.pack(side=LEFT, padx=5, pady=5)
+		self.PPNFrame.pack(side=LEFT, expand=True, fill=BOTH, padx=5, pady=5)
+
+		self.PPNCenterFrame = Frame(self.PPNFrame, borderwidth=3, bg=self.main_theme)
+		self.PPNCenterFrame.pack(side=TOP)
 
 		image = Image.open("Icons/Previous.png")
 		image = image.resize((40,40))
 		previousIcon = ImageTk.PhotoImage(image)
-		self.previousClipButton = Button(self.PPNFrame, relief="raised", bg=self.main_theme, image=previousIcon)
+		self.previousClipButton = Button(self.PPNCenterFrame, relief="raised", bg=self.main_theme, image=previousIcon)
 		self.previousClipButton.image = previousIcon
 		#self.previousClipButton['command'] = self.buttonPreviousClicked
 		self.previousClipButton.pack(side=LEFT, padx=5)
@@ -100,7 +103,7 @@ class App():
 		image = Image.open("Icons/Play.png")
 		image = image.resize((40,40))
 		playIcon = ImageTk.PhotoImage(image)
-		self.playButton = Button(self.PPNFrame, relief="raised", bg=self.main_theme, image=playIcon)
+		self.playButton = Button(self.PPNCenterFrame, relief="raised", bg=self.main_theme, image=playIcon)
 		self.playButton.image = playIcon
 		#self.playButton['command'] = self.openInDefaultPlayer
 		self.playButton.pack(side=LEFT, pady=5)
@@ -108,26 +111,29 @@ class App():
 		image = Image.open("Icons/Next.png")
 		image = image.resize((40,40))
 		next_icon = ImageTk.PhotoImage(image)
-		self.nextClipButton = Button(self.PPNFrame, relief="raised", bg=self.main_theme, image=next_icon)
+		self.nextClipButton = Button(self.PPNCenterFrame, relief="raised", bg=self.main_theme, image=next_icon)
 		self.nextClipButton.image = next_icon
 		#self.nextClipButton['command'] = self.buttonNextClicked
 		self.nextClipButton.pack(side=LEFT, padx=5)#padx=(5,5), pady=5)
 
-
+		# --------------------------------------------------------------------------------------------------
 		# Sub Frame KC = Kill Counter
-		self.KCFrame = LabelFrame(self.PPNKCFrame, text="Kill Counter", font=self.main_font_size8, labelanchor="s", borderwidth=0, bg=self.main_theme, fg=self.font_color)
-		self.KCFrame.pack(side=RIGHT, padx=5, pady=5)
+		self.KCFrame = LabelFrame(self.PPNKCFrame, text="Kill Counter", font=self.main_font_size8, labelanchor="s", borderwidth=1, bg=self.main_theme, fg=self.font_color)
+		self.KCFrame.pack(side=LEFT, expand=True, fill=BOTH, padx=5, pady=5)
+
+		self.KCCenterFrame = Frame(self.KCFrame, borderwidth=3, bg=self.main_theme)
+		self.KCCenterFrame.pack(side=TOP)
 
 		# minus button
 		buttonFont = tkFont.Font(size=16, weight="bold")
 		#iconVIRTUAL = PhotoImage(width=1, height=1)
-		self.buttonMINUS = Button(self.KCFrame, text="-", fg="white", font=buttonFont, relief="raised", bg=self.main_theme, width=3, height=1)
+		self.buttonMINUS = Button(self.KCCenterFrame, text="-", fg="white", font=buttonFont, relief="raised", bg=self.main_theme, width=3, height=1)
 		#self.buttonMINUS['command'] = self.buttonMINUSClicked
-		self.buttonMINUS.pack(side=LEFT)
+		self.buttonMINUS.pack(side=LEFT, padx=5)
 
 		# kill count button
 		buttonFont = tkFont.Font(size=16, weight="bold")
-		self.buttonKILLCOUNTER = Button(self.KCFrame, text=str(self.killCounter), fg="white",relief="raised", font=buttonFont, bg=self.main_theme, width=3, height=1)
+		self.buttonKILLCOUNTER = Button(self.KCCenterFrame, text=str(self.killCounter), fg="white",relief="raised", font=buttonFont, bg=self.main_theme, width=3, height=1)
 		#self.buttonKILLCOUNTER['command'] = self.buttonKILLCOUNTERClicked
 		#self.buttonKILLCOUNTER.bind("<Enter>", self._onEnterKillCounter)
 		#self.buttonKILLCOUNTER.bind("<Leave>", self._onLeaveKillCounter)
@@ -137,11 +143,13 @@ class App():
 		# plus button
 		buttonFont = tkFont.Font(size=16, weight="bold")
 		#iconVIRTUAL = PhotoImage(width=1, height=1)
-		self.buttonPLUS = Button(self.KCFrame, text="+", fg="white", font=buttonFont, relief="raised", bg=self.main_theme, width=3, height=1)
+		self.buttonPLUS = Button(self.KCCenterFrame, text="+", fg="white", font=buttonFont, relief="raised", bg=self.main_theme, width=3, height=1)
 		#self.buttonPLUS['command'] = self.buttonPLUSClicked
-		self.buttonPLUS.pack(side=LEFT)
+		self.buttonPLUS.pack(side=LEFT, padx=5)
 
 
+
+		# --------------------------------------------------------------------------------------------------
 		# main window right frame
 		self.rightFrame = LabelFrame(self.root, text="SEARCH", font=self.main_font_size8, labelanchor="n", borderwidth=3, height=100, width=100, fg=self.font_color, bg=self.main_theme)
 		self.rightFrame.pack(fill=BOTH, expand=1, side=LEFT, padx=0, pady=0)
