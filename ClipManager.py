@@ -37,6 +37,9 @@ class App():
 		self.currentClipInfo = StringVar(self.root)
 		self.currentClipInfo.set("NEW, 27/02/2022, 03:45, 400Mo")
 
+		self.killCounter = 0
+		self.mouseOverKill_counter = False
+
 		self.main_frame = None
 		self.loadMenuBar()
 		self.loadClipManager()
@@ -80,6 +83,7 @@ class App():
 		self.PPNKCFrame = Frame(self.leftFrame, borderwidth=0, bg=self.main_theme, relief="sunken")
 		self.PPNKCFrame.pack(side=TOP, fill=X, expand=False)
 
+
 		# Sub Frame PPN = Previous + Play + Next
 		self.PPNFrame = LabelFrame(self.PPNKCFrame, text="Media control", font=self.main_font_size8, labelanchor="s", borderwidth=0, bg=self.main_theme, fg=self.font_color)
 		#self.PPNFrame = Frame(self.PPNKCFrame, borderwidth=0, bg=self.main_theme, relief="sunken")
@@ -108,6 +112,34 @@ class App():
 		self.nextClipButton.image = next_icon
 		#self.nextClipButton['command'] = self.buttonNextClicked
 		self.nextClipButton.pack(side=LEFT, padx=5)#padx=(5,5), pady=5)
+
+
+		# Sub Frame KC = Kill Counter
+		self.KCFrame = LabelFrame(self.PPNKCFrame, text="Kill Counter", font=self.main_font_size8, labelanchor="s", borderwidth=0, bg=self.main_theme, fg=self.font_color)
+		self.KCFrame.pack(side=RIGHT, padx=5, pady=5)
+
+		# minus button
+		buttonFont = tkFont.Font(size=16, weight="bold")
+		#iconVIRTUAL = PhotoImage(width=1, height=1)
+		self.buttonMINUS = Button(self.KCFrame, text="-", fg="white", font=buttonFont, relief="raised", bg=self.main_theme, width=3, height=1)
+		#self.buttonMINUS['command'] = self.buttonMINUSClicked
+		self.buttonMINUS.pack(side=LEFT)
+
+		# kill count button
+		buttonFont = tkFont.Font(size=16, weight="bold")
+		self.buttonKILLCOUNTER = Button(self.KCFrame, text=str(self.killCounter), fg="white",relief="raised", font=buttonFont, bg=self.main_theme, width=3, height=1)
+		#self.buttonKILLCOUNTER['command'] = self.buttonKILLCOUNTERClicked
+		#self.buttonKILLCOUNTER.bind("<Enter>", self._onEnterKillCounter)
+		#self.buttonKILLCOUNTER.bind("<Leave>", self._onLeaveKillCounter)
+		#self.buttonKILLCOUNTER.bind_all("<MouseWheel>", self._onMousewheel)
+		self.buttonKILLCOUNTER.pack(side=LEFT)
+
+		# plus button
+		buttonFont = tkFont.Font(size=16, weight="bold")
+		#iconVIRTUAL = PhotoImage(width=1, height=1)
+		self.buttonPLUS = Button(self.KCFrame, text="+", fg="white", font=buttonFont, relief="raised", bg=self.main_theme, width=3, height=1)
+		#self.buttonPLUS['command'] = self.buttonPLUSClicked
+		self.buttonPLUS.pack(side=LEFT)
 
 
 		# main window right frame
