@@ -58,13 +58,17 @@ class App():
 	# --------------------------------------------------------------------------------------------------
 	# CLIP MANAGER MAIN PAGE
 	def loadClipManager(self):
+		# main paned window
+		self.mainPanedWindow = PanedWindow(self.root, sashrelief=RAISED, showhandle=False, sashwidth=5, bg=self.font_color1)
+		self.mainPanedWindow.pack(fill=BOTH, expand=True)
+
 		# main window left frame
-		self.leftFrame = LabelFrame(self.root, text="TAG", font=self.main_font_size8, labelanchor="n", borderwidth=3, height=100, width=100, fg=self.font_color1, bg=self.main_theme)
+		self.leftFrame = LabelFrame(self.mainPanedWindow, text="TAG", font=self.main_font_size8, labelanchor="n", borderwidth=0, height=100, width=100, fg=self.font_color1, bg=self.main_theme)
 		self.leftFrame.pack(fill=BOTH, expand=1, side=LEFT, padx=0, pady=0)
 
 		# First Frame (Clip Name + Clip Info + Rename Button) NIR = NameInfoRename
 		self.currentClipNIRFrame = Frame(self.leftFrame, borderwidth=0, bg=self.main_theme, relief="sunken")
-		self.currentClipNIRFrame.pack(side=TOP, fill=X, expand=False)
+		self.currentClipNIRFrame.pack(side=TOP, fill=X, expand=False, padx=5, pady=5)
 
 		self.currentClipFrame = Frame(self.currentClipNIRFrame, borderwidth=0, bg=self.main_theme, relief="groove")
 		self.currentClipFrame.pack(side=LEFT, fill=X, expand=True)
@@ -72,48 +76,48 @@ class App():
 		self.currentClipNameEntry = Entry(self.currentClipFrame, text=self.currentClipName, font=self.main_font_size8, fg=self.font_color1, bg=self.main_theme, highlightbackground="red", highlightcolor="red", state=NORMAL)
 		self.currentClipNameEntry.pack(side=TOP, fill=X, expand=False)
 		
-		self.currentClipInfoLabel = Label(self.currentClipFrame, text=self.currentClipInfo.get(), font=self.main_font_size8, anchor="w", fg=self.font_color1, bg=self.main_theme, borderwidth=1, relief="sunken")
+		self.currentClipInfoLabel = Label(self.currentClipFrame, text=self.currentClipInfo.get(), font=self.main_font_size8, anchor="w", fg=self.font_color1, bg=self.main_theme, borderwidth=0, relief="groove")
 		self.currentClipInfoLabel.pack(side=TOP, fill=X, expand=False)
 
-		self.buttonRename = Button(self.currentClipNIRFrame, text="Rename", fg=self.font_color1, font=self.main_font_size8, relief="raised", bg=self.main_theme)
+		self.buttonRename = Button(self.currentClipNIRFrame, text="Rename", fg=self.font_color1, font=self.main_font_size8, relief="raised", bg=self.main_theme, width=10, bd="1p")
 		#self.buttonRename['command'] = self.buttonRename_clicked1
 		self.buttonRename.pack(side=RIGHT, fill=Y)
 
 		# --------------------------------------------------------------------------------------------------
-		# Second Frame (PPNKC = Previous + Pause + Next buttons + Kill Counter)
-		self.PPNKCFrame = Frame(self.leftFrame, borderwidth=0, bg=self.main_theme, relief="sunken")
-		self.PPNKCFrame.pack(side=TOP, fill=X, expand=False, pady=5)
+		# Second Frame (PPNKCR = Previous + Pause + Next buttons + Kill Counter + Rating)
+		self.PPNKCRFrame = Frame(self.leftFrame, borderwidth=0, bg=self.main_theme, relief="sunken")
+		self.PPNKCRFrame.pack(side=TOP, fill=X, expand=False, pady=5)
 
 		# --------------------------------------------------------------------------------------------------
 		# Sub Frame PPN = Previous + Play + Next
-		self.PPNFrame = LabelFrame(self.PPNKCFrame, text="Media control", font=self.main_font_size8, labelanchor="s", borderwidth=0, bg=self.main_theme, fg=self.font_color1)
+		self.PPNFrame = LabelFrame(self.PPNKCRFrame, text="Media control", font=self.main_font_size8, labelanchor="s", borderwidth=0, bg=self.main_theme, fg=self.font_color1)
 		self.PPNFrame.pack(side=LEFT, expand=True, fill=BOTH, padx=5, pady=5)
 
-		self.previousClipButton = Button(self.PPNFrame, wraplength=50, justify=CENTER, text="Previous Clip", fg=self.font_color2, font=self.main_font_size8, relief="raised", bg=self.main_theme)
+		self.previousClipButton = Button(self.PPNFrame, wraplength=50, justify=CENTER, text="Previous Clip", fg=self.font_color2, font=self.main_font_size8, relief="raised", bg=self.main_theme, bd="1p")
 		#self.previousClipButton['command'] = self.buttonPreviousClicked
-		self.previousClipButton.pack(side=LEFT, padx=5, fill=BOTH, expand=1)
+		self.previousClipButton.pack(side=LEFT, fill=BOTH, expand=1)
 
-		self.playButton = Button(self.PPNFrame, wraplength=60, justify=CENTER, text="Open Clip in Default Player", fg=self.font_color2, font=self.main_font_size8, relief="raised", bg=self.main_theme)
+		self.playButton = Button(self.PPNFrame, wraplength=60, justify=CENTER, text="Open Clip in Default Player", fg=self.font_color2, font=self.main_font_size8, relief="raised", bg=self.main_theme, bd="1p")
 		#self.playButton['command'] = self.openInDefaultPlayer
 		self.playButton.pack(side=LEFT, fill=BOTH, expand=1)
 
-		self.nextClipButton = Button(self.PPNFrame, wraplength=60, justify=CENTER, text="Next Clip", fg=self.font_color2, font=self.main_font_size8, relief="raised", bg=self.main_theme)
+		self.nextClipButton = Button(self.PPNFrame, wraplength=60, justify=CENTER, text="Next Clip", fg=self.font_color2, font=self.main_font_size8, relief="raised", bg=self.main_theme, bd="1p")
 		#self.nextClipButton['command'] = self.buttonNextClicked
-		self.nextClipButton.pack(side=LEFT, padx=5, fill=BOTH, expand=1)
+		self.nextClipButton.pack(side=LEFT, fill=BOTH, expand=1)
 
 		# --------------------------------------------------------------------------------------------------
 		# Sub Frame KC = Kill Counter
-		self.KCFrame = LabelFrame(self.PPNKCFrame, text="Kill Counter", font=self.main_font_size8, labelanchor="s", borderwidth=0, bg=self.main_theme, fg=self.font_color1)
+		self.KCFrame = LabelFrame(self.PPNKCRFrame, text="Kill Counter", font=self.main_font_size8, labelanchor="s", borderwidth=0, bg=self.main_theme, fg=self.font_color1)
 		self.KCFrame.pack(side=LEFT, expand=True, fill=BOTH, padx=5, pady=5)
 
 		# minus button
 		buttonFont = tkFont.Font(size=16, weight="bold")
-		self.buttonMINUS = Button(self.KCFrame, text="-", fg=self.font_color2, font=buttonFont, relief="raised", bg=self.main_theme, width=3, height=1)
+		self.buttonMINUS = Button(self.KCFrame, text="-", fg=self.font_color2, font=buttonFont, relief="raised", bg=self.main_theme, width=3, height=1, bd="1p")
 		#self.buttonMINUS['command'] = self.buttonMINUSClicked
-		self.buttonMINUS.pack(side=LEFT, padx=5, fill=BOTH, expand=1)
+		self.buttonMINUS.pack(side=LEFT, fill=BOTH, expand=1)
 
 		# kill count button
-		self.buttonKILLCOUNTER = Button(self.KCFrame, text=str(self.killCounter), fg=self.font_color2,relief="raised", font=buttonFont, bg=self.main_theme, width=3, height=1)
+		self.buttonKILLCOUNTER = Button(self.KCFrame, text=str(self.killCounter), fg=self.font_color2,relief="raised", font=buttonFont, bg=self.main_theme, width=3, height=1, bd="1p")
 		#self.buttonKILLCOUNTER['command'] = self.buttonKILLCOUNTERClicked
 		#self.buttonKILLCOUNTER.bind("<Enter>", self._onEnterKillCounter)
 		#self.buttonKILLCOUNTER.bind("<Leave>", self._onLeaveKillCounter)
@@ -121,16 +125,56 @@ class App():
 		self.buttonKILLCOUNTER.pack(side=LEFT, fill=BOTH, expand=1)
 
 		# plus button
-		self.buttonPLUS = Button(self.KCFrame, text="+", fg=self.font_color2, font=buttonFont, relief="raised", bg=self.main_theme, width=3, height=1)
+		self.buttonPLUS = Button(self.KCFrame, text="+", fg=self.font_color2, font=buttonFont, relief="raised", bg=self.main_theme, width=3, height=1, bd="1p")
 		#self.buttonPLUS['command'] = self.buttonPLUSClicked
-		self.buttonPLUS.pack(side=LEFT, padx=5, fill=BOTH, expand=1)
+		self.buttonPLUS.pack(side=LEFT, fill=BOTH, expand=1)
+
+
+		# --------------------------------------------------------------------------------------------------
+		# Sub Frame R = Rating
+		self.RFrame = LabelFrame(self.PPNKCRFrame, text="Rating", font=self.main_font_size8, labelanchor="s", borderwidth=0, bg=self.main_theme, fg=self.font_color1)
+		self.RFrame.pack(side=LEFT, expand=True, fill=BOTH, padx=5, pady=5)
+
+		# star button 1
+		iconSTAR = PhotoImage(file="Icons/Star.png")
+		self.buttonSTAR1 = Button(self.RFrame, relief="raised", bg=self.main_theme, image=iconSTAR, bd="1p")
+		self.buttonSTAR1.image = iconSTAR
+		#self.buttonSTAR1['command'] = self.buttonSTAR1Clicked
+		self.buttonSTAR1.pack(side=LEFT, expand=1, fill=BOTH)
+		# star button 2
+		self.buttonSTAR2 = Button(self.RFrame, relief="raised", bg=self.main_theme, image=iconSTAR, bd="1p")
+		self.buttonSTAR2.image = iconSTAR
+		#self.buttonSTAR2['command'] = self.buttonSTAR2Clicked
+		self.buttonSTAR2.pack(side=LEFT, expand=1, fill=BOTH)
+		# star button 3
+		self.buttonSTAR3 = Button(self.RFrame, relief="raised", bg=self.main_theme, image=iconSTAR, bd="1p")
+		self.buttonSTAR3.image = iconSTAR
+		#self.buttonSTAR3['command'] = self.buttonSTAR3Clicked
+		self.buttonSTAR3.pack(side=LEFT, expand=1, fill=BOTH)
+		# star button 4
+		self.buttonSTAR4 = Button(self.RFrame, relief="raised", bg=self.main_theme, image=iconSTAR, bd="1p")
+		self.buttonSTAR4.image = iconSTAR
+		#self.buttonSTAR4['command'] = self.buttonSTAR4Clicked
+		self.buttonSTAR4.pack(side=LEFT, expand=1, fill=BOTH)
+		# star button 5
+		self.buttonSTAR5 = Button(self.RFrame, relief="raised", bg=self.main_theme, image=iconSTAR, bd="1p")
+		self.buttonSTAR5.image = iconSTAR
+		#self.buttonSTAR5['command'] = self.buttonSTAR5Clicked
+		self.buttonSTAR5.pack(side=LEFT, expand=1, fill=BOTH)
+
+		self.buttonSTARRef = [self.buttonSTAR1, self.buttonSTAR2, self.buttonSTAR3, self.buttonSTAR4, self.buttonSTAR5]
 
 
 
 		# --------------------------------------------------------------------------------------------------
 		# main window right frame
-		self.rightFrame = LabelFrame(self.root, text="SEARCH", font=self.main_font_size8, labelanchor="n", borderwidth=3, height=100, width=100, fg=self.font_color1, bg=self.main_theme)
+		self.rightFrame = LabelFrame(self.mainPanedWindow, text="SEARCH", font=self.main_font_size8, labelanchor="n", borderwidth=0, height=100, width=100, fg=self.font_color1, bg=self.main_theme)
 		self.rightFrame.pack(fill=BOTH, expand=1, side=LEFT, padx=0, pady=0)
+
+
+
+		self.mainPanedWindow.add(self.leftFrame)
+		self.mainPanedWindow.add(self.rightFrame)
 
 	# --------------------------------------------------------------------------------------------------
 	# OPTIONS WINDOW
